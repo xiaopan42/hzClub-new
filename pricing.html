@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>服務價目 | 極限領域</title>
+    <title>服務價目 | 赫茲電競俱樂部</title>
     <style>
         :root { --primary-color: #00d4ff; --secondary-color: #7000ff; --bg-dark: #0f1218; --card-bg: #1a1e26; --text-light: #e0e0e0; }
         body { font-family: 'Microsoft JhengHei', sans-serif; background-color: var(--bg-dark); color: var(--text-light); margin: 0; }
@@ -14,11 +14,76 @@
         section { padding: 50px 20px; max-width: 1000px; margin: 0 auto; }
         h2 { text-align: center; border-bottom: 2px solid var(--primary-color); display: inline-block; padding-bottom: 10px; margin-bottom: 40px; }
         
-        table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 8px; overflow: hidden; margin-bottom: 40px; }
-        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #333; }
-        th { background: var(--secondary-color); color: white; }
+        /* ========================================= */
+        /* 📂 大類別頁籤 (Big Categories) 樣式 */
+        /* ========================================= */
+        .big-tab-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .big-tab-btn {
+            background: #151a24;
+            color: var(--text-light);
+            border: 2px solid #2d3748;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px; /* 圓弧大按鈕 */
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .big-tab-btn:hover {
+            border-color: var(--primary-color);
+            background: #1e2635;
+        }
+        .big-tab-btn.active {
+            background: linear-gradient(135deg, var(--secondary-color), #4b00b3);
+            color: white;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
         
-        .notice { background: #221a26; border-left: 4px solid var(--secondary-color); padding: 20px; border-radius: 4px; }
+        /* 預設隱藏所有大類別內容 */
+        .big-tab-content {
+            display: none;
+        }
+        .big-tab-content.active {
+            display: block;
+        }
+
+        /* ========================================= */
+        /* 🏷️ 小類別區塊 (Sub Categories) 樣式 */
+        /* ========================================= */
+        .sub-category-block {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 35px;
+            border: 1px solid #2a313d;
+        }
+        .sub-category-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+        }
+
+        /* 表格樣式微調 */
+        table { width: 100%; border-collapse: collapse; overflow: hidden; margin-bottom: 10px; }
+        th, td { padding: 14px; text-align: left; border-bottom: 1px solid #2a313d; }
+        th { background: #222936; color: #fff; font-weight: bold; font-size: 0.95rem; }
+        tr:last-child td { border-bottom: none; }
+        td strong { color: #fff; }
+        
+        .notice { background: #221a26; border-left: 4px solid var(--secondary-color); padding: 20px; border-radius: 4px; margin-top: 40px; }
         .notice h3 { margin-top: 0; color: #ff4757; }
         footer { text-align: center; padding: 30px; font-size: 0.8rem; color: #666; background: #07090d; }
     </style>
@@ -26,7 +91,7 @@
 <body>
 
     <nav>
-        <a href="index.html" class="logo">極限領域</a>
+        <a href="index.html" class="logo">赫茲電競</a>
         <div class="nav-links">
             <a href="index.html">首頁</a>
             <a href="team.html">打手陣容</a>
@@ -36,60 +101,122 @@
 
     <section>
         <center><h2>💰 服務項目與詳細價目表</h2></center>
-        <table>
-            <thead>
-                <tr>
-                    <th>服務類別</th>
-                    <th>詳細內容</th>
-                    <th>收費標準</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>基礎陪玩</strong></td>
-                    <td>日常任務、語音暢聊、娛樂常規局</td>
-                    <td>$200 / 小時</td>
-                </tr>
-                <tr>
-                    <td><strong>戰術高端護航</strong></td>
-                    <td>指定資源點壓制、高強度戰局帶打、身家財產守護</td>
-                    <td>$500 / 小時</td>
-                </tr>
-                <tr>
-                    <td><strong>娛樂包夜配套</strong></td>
-                    <td>多人歡樂局、技術指導、客製化陪玩體驗</td>
-                    <td>$1,200 / 4小時</td>
-                </tr>
-            </tbody>
-        </table>
-            <section>
-        <center><h2>💰 服務項目與詳細價目表</h2></center>
-        <table>
-            <thead>
-                <tr>
-                    <th>服務類別</th>
-                    <th>詳細內容</th>
-                    <th>收費標準</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>基礎陪玩</strong></td>
-                    <td>日常任務、語音暢聊、娛樂常規局</td>
-                    <td>$200 / 小時</td>
-                </tr>
-                <tr>
-                    <td><strong>戰術高端護航</strong></td>
-                    <td>指定資源點壓制、高強度戰局帶打、身家財產守護</td>
-                    <td>$500 / 小時</td>
-                </tr>
-                <tr>
-                    <td><strong>娛樂包夜配套</strong></td>
-                    <td>多人歡樂局、技術指導、客製化陪玩體驗</td>
-                    <td>$1,200 / 4小時</td>
-                </tr>
-            </tbody>
-        </table>
+
+        <div class="big-tab-container">
+            <button class="big-tab-btn active" onclick="switchBigTab(event, 'game-delta')">🔺 三角洲行動</button>
+            <button class="big-tab-btn" onclick="switchBigTab(event, 'game-valorant')">🔫 特戰英豪</button>
+        </div>
+
+
+        <div id="game-delta" class="big-tab-content active">
+            
+            <div class="sub-category-block">
+                <div class="sub-category-title">📦 小類別：安全護航（滿載撤離）</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>項目名稱</th>
+                            <th>詳細說明</th>
+                            <th>收費標準</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>航天基地 (全清)</strong></td>
+                            <td>頂級打手帶打、全圖高價值物資掃蕩、保證安全撤離</td>
+                            <td>$500 / 一局</td>
+                        </tr>
+                        <tr>
+                            <td><strong>巴克什 (資源點)</strong></td>
+                            <td>精準清除威脅、核心資源點抽取、適合快速發家</td>
+                            <td>$400 / 一局</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="sub-category-block">
+                <div class="sub-category-title">🏆 小類別：曼德爾磚 / 排位提升</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>服務項目</th>
+                            <th>詳細說明</th>
+                            <th>收費標準</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>常規排位帶打</strong></td>
+                            <td>打手雙排或三排護航，不扣分、穩定晉級</td>
+                            <td>$100 / 每階段</td>
+                        </tr>
+                        <tr>
+                            <td><strong>曼德爾磚解鎖</strong></td>
+                            <td>指定任務道具、高難度頭銜與成就解鎖</td>
+                            <td>Discord 私訊報價</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+        <div id="game-valorant" class="big-tab-content">
+            
+            <div class="sub-category-block">
+                <div class="sub-category-title">🎯 小類別：天梯排位代練</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>牌位區間</th>
+                            <th>詳細內容</th>
+                            <th>收費標準</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>鐵牌 ~ 銀牌</strong></td>
+                            <td>純手工高效代練，快速脫離新手區</td>
+                            <td>$50 / 一階</td>
+                        </tr>
+                        <tr>
+                            <td><strong>金牌 ~ 鑽石</strong></td>
+                            <td>神射手/幅能級打手親自操刀，隱私安全有保障</td>
+                            <td>$150 / 一階</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="sub-category-block">
+                <div class="sub-category-title">🌸 小類別：技術與娛樂陪玩</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>服務類型</th>
+                            <th>詳細說明</th>
+                            <th>收費標準</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>高端技術陪玩</strong></td>
+                            <td>幅能打手帶打，語音同步報位、教你如何拉線與補槍</td>
+                            <td>$250 / 小時</td>
+                        </tr>
+                        <tr>
+                            <td><strong>氣氛娛樂陪玩</strong></td>
+                            <td>幽默風趣、語音全程互動、炸魚常規局輕鬆好玩</td>
+                            <td>$200 / 小時</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
 
         <div class="notice">
             <h3>⚠️ 預約與消費須知</h3>
@@ -101,7 +228,25 @@
         </div>
     </section>
 
-    <footer>&copy; 2026 極限領域 遊戲工作室. All Rights Reserved.</footer>
+    <footer>&copy; 2026 赫茲電競俱樂部. All Rights Reserved.</footer>
+
+    <script>
+        function switchBigTab(event, bigTabId) {
+            // 1. 隱藏所有大類別的內容
+            const contents = document.querySelectorAll('.big-tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // 2. 取消所有大按鈕的亮色 (active) 狀態
+            const buttons = document.querySelectorAll('.big-tab-btn');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            // 3. 顯示點擊的大類別
+            document.getElementById(bigTabId).classList.add('active');
+
+            // 4. 讓目前點擊的大按鈕發亮
+            event.currentTarget.classList.add('active');
+        }
+    </script>
 
 </body>
 </html>
