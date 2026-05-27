@@ -3,59 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>打手陣容 | 赫茲電競俱樂部</title>
+    <title>團隊陣容 | 赫茲電競俱樂部</title>
     <style>
-        :root { --primary-color: #00d4ff; --secondary-color: #7000ff; --bg-dark: #0f1218; --card-bg: #1a1e26; --text-light: #e0e0e0; }
+        :root { 
+            --primary-color: #00d4ff; 
+            --secondary-color: #7000ff; 
+            --management-color: #ffd700; /* ✨ 新增：管理層專屬尊爵金 */
+            --bg-dark: #0f1218; 
+            --card-bg: #1a1e26; 
+            --text-light: #e0e0e0; 
+        }
         body { font-family: 'Microsoft JhengHei', sans-serif; background-color: var(--bg-dark); color: var(--text-light); margin: 0; }
         nav { background: #07090d; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222;}
         .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); text-decoration: none; }
         .nav-links a { color: var(--text-light); text-decoration: none; margin-left: 20px; }
         .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
-        section { padding: 50px 20px; max-width: 1000px; margin: 0 auto; }
-        h2 { text-align: center; border-bottom: 2px solid var(--primary-color); display: inline-block; padding-bottom: 10px; margin-bottom: 40px; }
         
-        /* 網格佈局微調，確保垂直置中 */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: start; }
+        section { padding: 40px 20px; max-width: 1000px; margin: 0 auto; }
         
-        /* 卡片樣式修訂 */
+        /* 標題樣式 */
+        .section-title { text-align: center; display: block; margin-bottom: 40px; }
+        .section-title h2 { display: inline-block; padding-bottom: 10px; margin: 0; }
+        .title-mgmt h2 { border-bottom: 2px solid var(--management-color); color: var(--management-color); }
+        .title-players h2 { border-bottom: 2px solid var(--primary-color); color: var(--primary-color); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; align-items: start; }
+        
+        /* ========================================= */
+        /* 🎴 基礎卡片樣式 */
+        /* ========================================= */
         .card { 
             background: var(--card-bg); 
             border-radius: 12px; 
-            padding: 25px; /* 增加一點內距 */
+            padding: 25px; 
             border: 1px solid #333; 
-            text-align: center; /* 讓卡片內容整體置中 */
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            text-align: center; 
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
-        }
-
-        /* ========================================= */
-        /* ✨ 新增：打手照片樣式 ✨ */
-        /* ========================================= */
         .player-photo {
-            width: 150px;          /* 設定固定寬度 */
-            height: 150px;         /* 設定固定高度 */
-            border-radius: 50%;    /* 變成圓形 */
-            object-fit: cover;     /* 圖片裁切方式：填充並保持比例，多餘的會被切掉 */
-            margin-bottom: 15px;   /* 下方留白 */
-            border: 3px solid #333; /* 增加邊框感 */
+            width: 120px;          
+            height: 120px;         
+            border-radius: 50%;    
+            object-fit: cover;     
+            margin-bottom: 15px;   
+            border: 3px solid #333; 
             transition: border-color 0.3s ease;
         }
-        .card:hover .player-photo {
-            border-color: var(--primary-color); /* 滑鼠懸停時邊框變色 */
-        }
-        /* ========================================= */
-
-        .card h3 { color: var(--primary-color); margin-top: 0; margin-bottom: 10px; }
-        
-        /* 讓標籤組也在中間 */
+        .card h3 { margin-top: 0; margin-bottom: 10px; }
         .tags-container { margin-bottom: 15px; display: flex; flex-wrap: wrap; justify-content: center; gap: 5px;}
-        .tag { background: var(--secondary-color); font-size: 0.8rem; padding: 3px 8px; border-radius: 4px; }
-        
-        /* 簡介文字靠左對齊，方便閱讀長文 */
         .bio-text { text-align: left; font-size: 0.95rem; color: #ccc; }
+        .bio-text p { margin: 8px 0; }
+
+        /* ========================================= */
+        /* 👑 管理層專屬樣式（金色調） */
+        /* ========================================= */
+        .card-mgmt { border-color: #4a3b1a; }
+        .card-mgmt:hover {
+            transform: translateY(-5px);
+            border-color: var(--management-color);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+        .card-mgmt h3 { color: var(--management-color); }
+        .card-mgmt .player-photo { border-color: #4a3b1a; }
+        .card-mgmt:hover .player-photo { border-color: var(--management-color); }
+        .tag-mgmt { background: #665200; color: #fff; font-size: 0.8rem; padding: 3px 10px; border-radius: 4px; border: 1px solid var(--management-color); }
+
+        /* ========================================= */
+        /* ⚔️ 打手層專屬樣式（藍紫色調） */
+        /* ========================================= */
+        .card-player:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        }
+        .card-player h3 { color: var(--primary-color); }
+        .card-player:hover .player-photo { border-color: var(--primary-color); }
+        .tag-player { background: var(--secondary-color); font-size: 0.8rem; padding: 3px 8px; border-radius: 4px; }
 
         footer { text-align: center; padding: 30px; font-size: 0.8rem; color: #666; background: #07090d; margin-top: 50px;}
     </style>
@@ -66,47 +89,67 @@
         <a href="index.html" class="logo">赫茲電競</a>
         <div class="nav-links">
             <a href="index.html">首頁</a>
-            <a href="team.html" class="active">打手陣容</a>
+            <a href="team.html" class="active">團隊陣容</a>
             <a href="pricing.html">服務價目</a>
         </div>
     </nav>
 
     <section>
-        <center><h2>👥 俱樂部全體打手陣容</h2></center>
+        <div class="section-title title-mgmt">
+            <h2>👑 核心管理階層</h2>
+        </div>
         <div class="grid">
             
-            <div class="card">
-                <img src="images/下.jpg" alt="打手小潘" class="player-photo">
-                
-                <h3>打手：小潘 (Xiaopan)</h3>
-                
+            <div class="card card-mgmt">
+                <img src="images/xiaopan.jpg" alt="店長小潘" class="player-photo">
+                <h3>店長：小潘 (Xiaopan)</h3>
                 <div class="tags-container">
-                    <span class="tag">擅長角色：威龍.疾風.露娜</span>
-                    <span class="tag">擅長地圖：航天.巴克什</span>
+                    <span class="tag-mgmt">最高營運總監</span>
+                    <span class="tag-mgmt">商務合作負責人</span>
                 </div>
-                
                 <div class="bio-text">
-                    <p><strong>遊玩風格：</strong> 極致歐美打法 </p>
-                    <p><strong>自我介紹：</strong> 俱樂部店長，兩字歐美一字狂，見人我就往地躺。</p>
+                    <p><strong>管理風格：</strong> 極致歐美、雷厲風行</p>
+                    <p><strong>負責事務：</strong> 負責赫茲俱樂部整體營運方針、打手技術考核及重大客戶申訴處理。兩字歐美一字狂，帶領團隊走向巔峰！</p>
                 </div>
             </div>
 
-            <div class="card">
-                <img src="images/EF2908E0-0733-4C14-A049-035418B86914.jpg" alt="打手小陳" class="player-photo">
-                
-                <h3>打手：小陳 (XiaocheN)</h3>
-                
+            <div class="card card-mgmt">
+                <img src="images/boss.jpg" alt="創辦人" class="player-photo">
+                <h3>創辦人：Hertz (赫茲)</h3>
                 <div class="tags-container">
-                    <span class="tag">擅長角色：疾風.露娜</span>
-                    <span class="tag">擅長地圖：航天</span>
+                    <span class="tag-mgmt">俱樂部創始人</span>
+                    <span class="tag-mgmt">技術總監</span>
                 </div>
-                
                 <div class="bio-text">
-                    <p><strong>遊玩風格：</strong> 極致中東打法</p>
-                    <p><strong>自我介紹：</strong> 疾風是我媽媽。</p>
+                    <p><strong>發展願景：</strong> 用專業定義陪伴，用技術翻轉戰局</p>
+                    <p><strong>負責事務：</strong> 赫茲電競品牌創辦人，專注於伺服器網路優化、資訊安全維護以及後台工單系統的穩定運作。</p>
                 </div>
             </div>
+
+        </div>
+    </section>
+
+    <center><hr style="width: 80%; border: 0; border-top: 1px solid #222; margin: 20px 0;"></center>
+
+    <section>
+        <div class="section-title title-players">
+            <h2>👥 專業打手陣容</h2>
+        </div>
+        <div class="grid">
             
+            <div class="card card-player">
+                <img src="images/luna.jpg" alt="打手露娜" class="player-photo">
+                <h3>打手：露娜 (Luna)</h3>
+                <div class="tags-container">
+                    <span class="tag-player">擅長：露娜</span>
+                    <span class="tag-player">地圖：全地圖</span>
+                </div>
+                <div class="bio-text">
+                    <p><strong>技術風格：</strong> 意識流、細節拉滿</p>
+                    <p><strong>個人簡介：</strong> 極致的操作細節與戰局分析，無論是高難度副本還是特定目標達成，都是你的最佳選擇。</p>
+                </div>
+            </div>
+
             </div>
     </section>
 
