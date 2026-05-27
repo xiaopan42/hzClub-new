@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>打手陣容 | 赫茲電競俱樂部</title>
+    <style>
+        :root { --primary-color: #00d4ff; --secondary-color: #7000ff; --bg-dark: #0f1218; --card-bg: #1a1e26; --text-light: #e0e0e0; }
+        body { font-family: 'Microsoft JhengHei', sans-serif; background-color: var(--bg-dark); color: var(--text-light); margin: 0; }
+        nav { background: #07090d; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222;}
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); text-decoration: none; }
+        .nav-links a { color: var(--text-light); text-decoration: none; margin-left: 20px; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
+        section { padding: 50px 20px; max-width: 1000px; margin: 0 auto; }
+        h2 { text-align: center; border-bottom: 2px solid var(--primary-color); display: inline-block; padding-bottom: 10px; margin-bottom: 40px; }
+        
+        /* 網格佈局微調，確保垂直置中 */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: start; }
+        
+        /* 卡片樣式修訂 */
+        .card { 
+            background: var(--card-bg); 
+            border-radius: 12px; 
+            padding: 25px; /* 增加一點內距 */
+            border: 1px solid #333; 
+            text-align: center; /* 讓卡片內容整體置中 */
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        /* ========================================= */
+        /* ✨ 新增：打手照片樣式 ✨ */
+        /* ========================================= */
+        .player-photo {
+            width: 150px;          /* 設定固定寬度 */
+            height: 150px;         /* 設定固定高度 */
+            border-radius: 50%;    /* 變成圓形 */
+            object-fit: cover;     /* 圖片裁切方式：填充並保持比例，多餘的會被切掉 */
+            margin-bottom: 15px;   /* 下方留白 */
+            border: 3px solid #333; /* 增加邊框感 */
+            transition: border-color 0.3s ease;
+        }
+        .card:hover .player-photo {
+            border-color: var(--primary-color); /* 滑鼠懸停時邊框變色 */
+        }
+        /* ========================================= */
+
+        .card h3 { color: var(--primary-color); margin-top: 0; margin-bottom: 10px; }
+        
+        /* 讓標籤組也在中間 */
+        .tags-container { margin-bottom: 15px; display: flex; flex-wrap: wrap; justify-content: center; gap: 5px;}
+        .tag { background: var(--secondary-color); font-size: 0.8rem; padding: 3px 8px; border-radius: 4px; }
+        
+        /* 簡介文字靠左對齊，方便閱讀長文 */
+        .bio-text { text-align: left; font-size: 0.95rem; color: #ccc; }
+
+        footer { text-align: center; padding: 30px; font-size: 0.8rem; color: #666; background: #07090d; margin-top: 50px;}
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">赫茲電競</a>
+        <div class="nav-links">
+            <a href="index.html">首頁</a>
+            <a href="team.html" class="active">打手陣容</a>
+            <a href="pricing.html">服務價目</a>
+        </div>
+    </nav>
+
+    <section>
+        <center><h2>👥 俱樂部全體打手陣容</h2></center>
+        <div class="grid">
+            
+            <div class="card">
+                <img src="D:\檔案庫\圖片\圖\下.jpg" alt="打手小潘" class="player-photo">
+                
+                <h3>打手：小潘 (Xiaopan)</h3>
+                
+                <div class="tags-container">
+                    <span class="tag">擅長角色：威龍.疾風.露娜</span>
+                    <span class="tag">擅長地圖：航天.巴克什</span>
+                </div>
+                
+                <div class="bio-text">
+                    <p><strong>遊玩風格：</strong> 極致歐美 </p>
+                    <p><strong>自我介紹：</strong> 俱樂部店長，兩字歐美一字狂，見人我就往地躺。</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="D:\檔案庫\圖片\圖\EF2908E0-0733-4C14-A049-035418B86914.jpg" alt="打手小陳" class="player-photo">
+                
+                <h3>打手：小陳 (XiaocheN)</h3>
+                
+                <div class="tags-container">
+                    <span class="tag">擅長角色：疾風.露娜</span>
+                    <span class="tag">擅長地圖：航天</span>
+                </div>
+                
+                <div class="bio-text">
+                    <p><strong>遊玩風格：</strong> 極致鼠鼠打法</p>
+                    <p><strong>自我介紹：</strong> 疾風是我媽媽。</p>
+                </div>
+            </div>
+            
+            </div>
+    </section>
+
+    <footer>&copy; 2026 赫茲電競俱樂部. All Rights Reserved.</footer>
+
+</body>
+</html>
