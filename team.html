@@ -3,30 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>團隊陣容 | 赫茲電競俱樂部</title>
+    <title>團隊陣容 | HeTz 俱樂部</title>
     <style>
         :root { 
             --primary-color: #00d4ff; 
             --secondary-color: #7000ff; 
-            --management-color: #ffd700; /* ✨ 新增：管理層專屬尊爵金 */
-            --bg-dark: #0f1218; 
-            --card-bg: #1a1e26; 
+            --management-color: #ffd700; /* ✨ 管理層專屬尊爵金 */
+            --bg-dark: #0a0c10; 
+            --card-bg: #141822; 
             --text-light: #e0e0e0; 
         }
         body { font-family: 'Microsoft JhengHei', sans-serif; background-color: var(--bg-dark); color: var(--text-light); margin: 0; }
         
         /* ========================================= */
-        /* 🧭 導覽列精準置中三欄排版 */
+        /* 🧭 導覽列佈局：三欄獨立、左右配重、中間置中 */
         /* ========================================= */
         nav { 
             background: #07090d; 
             padding: 15px 20px; 
             display: flex; 
             align-items: center; 
-            border-bottom: 1px solid #222;
+            border-bottom: 1px solid #1a1f2c;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
-        /* 1. 左邊欄：Logo 區塊固定寬度 */
+        /* 左欄：Logo 固定寬度 */
         .logo { 
             font-size: 1.5rem; 
             font-weight: bold; 
@@ -36,7 +39,7 @@
             box-sizing: border-box;
         }
         
-        /* 2. 中間欄：選單區塊自動延伸並置中 */
+        /* 中欄：選單區塊完全鎖在螢幕正中央 */
         .nav-links { 
             flex: 1; 
             text-align: center; 
@@ -48,34 +51,47 @@
             font-size: 1.05rem;
             transition: color 0.3s ease;
         }
-        .nav-links a:hover, .nav-links a.active { 
-            color: var(--primary-color); 
-        }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
         
-        /* 3. 右邊欄：登入按鈕區塊與左邊等寬，達成完美平衡 */
+        /* 右欄：登入按鈕區塊，與左邊等寬以達成平衡 */
         .nav-auth { 
             width: 200px; 
-            text-align: right; 
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
             box-sizing: border-box;
+            gap: 10px;
         }
         
-        /* 登入按鈕基本樣式 */
-        .nav-login-btn { 
+        .login-btn { 
             display: inline-block;
-            background: transparent; 
             color: var(--primary-color); 
-            border: 1px solid var(--primary-color); 
-            padding: 6px 16px; 
-            border-radius: 4px; 
             text-decoration: none; 
+            padding: 6px 16px; 
+            border: 1px solid var(--primary-color); 
+            border-radius: 4px; 
             font-weight: bold; 
             font-size: 0.95rem;
             transition: all 0.3s ease;
         }
-        .nav-login-btn:hover { 
+        .login-btn:hover { 
             background: var(--primary-color); 
             color: #000; 
             box-shadow: 0 0 10px rgba(0, 212, 255, 0.4);
+        }
+        .user-profile {
+            display: none; 
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+        }
+        .nav-username {
+            font-size: 0.95rem;
         }
         
         section { padding: 40px 20px; max-width: 1000px; margin: 0 auto; }
@@ -95,7 +111,7 @@
             background: var(--card-bg); 
             border-radius: 12px; 
             padding: 25px; 
-            border: 1px solid #333; 
+            border: 1px solid #2a313d; 
             text-align: center; 
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             display: flex;
@@ -110,16 +126,16 @@
             border-radius: 50%;    
             object-fit: cover;     
             margin-bottom: 15px;   
-            border: 3px solid #333; 
+            border: 3px solid #2a313d; 
             transition: border-color 0.3s ease;
         }
         .card h3 { margin-top: 0; margin-bottom: 10px; }
         .tags-container { margin-bottom: 15px; display: flex; flex-wrap: wrap; justify-content: center; gap: 5px;}
-        .bio-text { text-align: left; font-size: 0.95rem; color: #ccc; flex: 1; }
+        .bio-text { text-align: left; font-size: 0.95rem; color: #ccc; flex: 1; width: 100%; }
         .bio-text p { margin: 8px 0; }
 
         /* ========================================= */
-        /* 👑 管理層專屬樣式（金色調） */
+        /* 👑 管理層專專屬樣式（金色調） */
         /* ========================================= */
         .card-mgmt { border-color: #4a3b1a; }
         .card-mgmt:hover {
@@ -142,7 +158,7 @@
         }
         .card-player h3 { color: var(--primary-color); }
         .card-player:hover .player-photo { border-color: var(--primary-color); }
-        .tag-player { background: var(--secondary-color); font-size: 0.8rem; padding: 3px 8px; border-radius: 4px; }
+        .tag-player { background: var(--secondary-color); font-size: 0.8rem; padding: 3px 8px; border-radius: 4px; border: 1px solid #5a00d4; }
 
         footer { text-align: center; padding: 30px; font-size: 0.8rem; color: #666; background: #07090d; margin-top: 50px;}
     </style>
@@ -150,16 +166,18 @@
 <body>
 
     <nav>
-        <a href="index.html" class="logo">赫茲電競</a>
-        
+        <a href="index.html" class="logo">HeTz 俱樂部</a>
         <div class="nav-links">
             <a href="index.html">首頁</a>
-            <a href="team" class="active">團隊陣容</a>
+            <a href="team" class="active">打手陣容</a>
             <a href="pricing">服務價目</a>
         </div>
-        
         <div class="nav-auth">
-            <a href="login" class="nav-login-btn">會員登入</a>
+            <a href="login" id="nav-login-btn" class="login-btn">登入帳號</a>
+            <div id="nav-user-profile" class="user-profile">
+                <img id="nav-user-avatar" class="nav-avatar" src="" alt="頭像">
+                <span id="nav-user-name" class="nav-username">玩家</span>
+            </div>
         </div>
     </nav>
 
@@ -183,6 +201,7 @@
                     <p><strong>個人簡介：</strong> 兩字歐美一字狂，我的14有點馬，航天小羅莉，巴克什老鼠，監獄蹲著走。</p>
                 </div>
             </div>
+
             <div class="card card-mgmt">
                 <img src="images/57bb127940c0c24d121fd2a4a7159a8e.png" alt="客服魚茫" class="player-photo">
                 <h3>客服：魚茫 (fish)</h3>
@@ -191,14 +210,14 @@
                     <span class="tag-mgmt">最帥的魚茫</span>
                 </div>
                 <div class="bio-text">
-                    <p><strong>個人簡介：</strong> 我是客服魚茫，負責處理各位老闆的各種問題和需求。</p>
+                    <p><strong>個人簡介：</strong> 我我是客服魚茫，負責處理各位老闆的各種問題和需求。</p>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <center><hr style="width: 80%; border: 0; border-top: 1px solid #222; margin: 20px 0;"></center>
+    <center><hr style="width: 80%; border: 0; border-top: 1px solid #1a1f2c; margin: 20px 0;"></center>
 
     <section>
         <div class="section-title title-players">
@@ -233,7 +252,23 @@
         </div>
     </section>
 
-    <footer>&copy; 2026 赫茲電競俱樂部. All Rights Reserved.</footer>
+    <footer>&copy; 2026 HeTz 俱樂部. All Rights Reserved.</footer>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const savedUser = localStorage.getItem('discord_user');
+            if (savedUser) {
+                const user = JSON.parse(savedUser);
+                document.getElementById('nav-login-btn').style.display = 'none';
+                document.getElementById('nav-user-profile').style.display = 'flex';
+                document.getElementById('nav-user-name').innerText = user.username;
+                if (user.avatar) {
+                    document.getElementById('nav-user-avatar').src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
+                } else {
+                    document.getElementById('nav-user-avatar').src = "https://cdn.discordapp.com/embed/avatars/0.png";
+                }
+            }
+        });
+    </script>
 </body>
 </html>

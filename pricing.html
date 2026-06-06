@@ -3,14 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>服務價目 | 赫茲電競俱樂部</title>
+    <title>服務價目 | HeTz 俱樂部</title>
     <style>
-        :root { --primary-color: #00d4ff; --secondary-color: #7000ff; --bg-dark: #0f1218; --card-bg: #1a1e26; --text-light: #e0e0e0; }
+        :root { 
+            --primary-color: #00d4ff; 
+            --secondary-color: #7000ff; 
+            --bg-dark: #0a0c10; 
+            --card-bg: #141822; 
+            --text-light: #e0e0e0; 
+        }
         body { font-family: 'Microsoft JhengHei', sans-serif; background-color: var(--bg-dark); color: var(--text-light); margin: 0; }
-        nav { background: #07090d; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222;}
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); text-decoration: none; }
-        .nav-links a { color: var(--text-light); text-decoration: none; margin-left: 20px; }
+        
+        /* ========================================= */
+        /* 🧭 導覽列佈局：三欄獨立、左右配重、中間置中 */
+        /* ========================================= */
+        nav { 
+            background: #07090d; 
+            padding: 15px 20px; 
+            display: flex; 
+            align-items: center; 
+            border-bottom: 1px solid #1a1f2c;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        /* 左欄：Logo 固定寬度 */
+        .logo { 
+            font-size: 1.5rem; 
+            font-weight: bold; 
+            color: var(--primary-color); 
+            text-decoration: none;
+            width: 200px;
+            box-sizing: border-box;
+        }
+        
+        /* 中欄：選單區塊完全鎖在螢幕正中央 */
+        .nav-links { 
+            flex: 1; 
+            text-align: center; 
+        }
+        .nav-links a { 
+            color: var(--text-light); 
+            text-decoration: none; 
+            margin: 0 15px; 
+            font-size: 1.05rem;
+            transition: color 0.3s ease;
+        }
         .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
+        
+        /* 右欄：登入按鈕區塊，與左邊等寬以達成平衡 */
+        .nav-auth {
+            width: 200px;
+            display: flex;
+            justify-content: flex-end; 
+            align-items: center;
+            box-sizing: border-box;
+            gap: 10px;
+        }
+        .login-btn {
+            display: inline-block;
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 6px 16px;
+            border: 1px solid var(--primary-color);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            font-weight: bold;
+        }
+        .login-btn:hover {
+            background: var(--primary-color);
+            color: #000;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.4);
+        }
+        .user-profile {
+            display: none; 
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+        }
+        .nav-username {
+            font-size: 0.95rem;
+        }
+
         section { padding: 50px 20px; max-width: 1000px; margin: 0 auto; }
         h2 { text-align: center; border-bottom: 2px solid var(--primary-color); display: inline-block; padding-bottom: 10px; margin-bottom: 40px; }
         
@@ -31,7 +112,7 @@
             padding: 15px 35px;
             font-size: 1.1rem;
             font-weight: bold;
-            border-radius: 30px; /* 圓弧大按鈕 */
+            border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -47,12 +128,8 @@
         }
         
         /* 預設隱藏所有大類別內容 */
-        .big-tab-content {
-            display: none;
-        }
-        .big-tab-content.active {
-            display: block;
-        }
+        .big-tab-content { display: none; }
+        .big-tab-content.active { display: block; }
 
         /* ========================================= */
         /* 🏷️ 小類別區塊 (Sub Categories) 樣式 */
@@ -85,17 +162,24 @@
         
         .notice { background: #221a26; border-left: 4px solid var(--secondary-color); padding: 20px; border-radius: 4px; margin-top: 40px; }
         .notice h3 { margin-top: 0; color: #ff4757; }
-        footer { text-align: center; padding: 30px; font-size: 0.8rem; color: #666; background: #07090d; }
+        footer { text-align: center; padding: 30px; font-size: 0.8rem; color: #666; background: #07090d; margin-top: 50px; }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="index.html" class="logo">赫茲電競</a>
+        <a href="index.html" class="logo">HeTz 俱樂部</a>
         <div class="nav-links">
             <a href="index.html">首頁</a>
-            <a href="team.html">團隊陣容</a>
-            <a href="pricing.html" class="active">服務價目</a>
+            <a href="team">打手陣容</a>
+            <a href="pricing" class="active">服務價目</a>
+        </div>
+        <div class="nav-auth">
+            <a href="login" id="nav-login-btn" class="login-btn">登入帳號</a>
+            <div id="nav-user-profile" class="user-profile">
+                <img id="nav-user-avatar" class="nav-avatar" src="" alt="頭像">
+                <span id="nav-user-name" class="nav-username">玩家</span>
+            </div>
         </div>
     </nav>
 
@@ -107,9 +191,7 @@
             <button class="big-tab-btn" onclick="switchBigTab(event, 'delta-2')">🔫 三角洲幣號.AW子彈.代肝</button>
         </div>
 
-
         <div id="delta-1" class="big-tab-content active">
-            
             <div class="sub-category-block">
                 <div class="sub-category-title">📦 保底單</div>
                 <table>
@@ -145,7 +227,6 @@
                             <td><strong>保底1億</strong></td>
                             <td>打出指定保底，沒打到不結單</td>
                             <td>6500台幣</td>
-                        </tr>
                         </tr>
                     </tbody>
                 </table>
@@ -190,12 +271,9 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
 
-
         <div id="delta-2" class="big-tab-content">
-            
             <div class="sub-category-block">
                 <div class="sub-category-title">🎯 小類別：天梯排位代練</div>
                 <table>
@@ -245,9 +323,7 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
-
 
         <div class="notice">
             <h3>⚠️ 預約與消費須知</h3>
@@ -259,25 +335,34 @@
         </div>
     </section>
 
-    <footer>&copy; 2026 赫茲電競俱樂部. All Rights Reserved.</footer>
+    <footer>&copy; 2026 HeTz 俱樂部. All Rights Reserved.</footer>
 
     <script>
         function switchBigTab(event, bigTabId) {
-            // 1. 隱藏所有大類別的內容
             const contents = document.querySelectorAll('.big-tab-content');
             contents.forEach(content => content.classList.remove('active'));
 
-            // 2. 取消所有大按鈕的亮色 (active) 狀態
             const buttons = document.querySelectorAll('.big-tab-btn');
             buttons.forEach(button => button.classList.remove('active'));
 
-            // 3. 顯示點擊的大類別
             document.getElementById(bigTabId).classList.add('active');
-
-            // 4. 讓目前點擊的大按鈕發亮
             event.currentTarget.classList.add('active');
         }
-    </script>
 
+        document.addEventListener("DOMContentLoaded", function() {
+            const savedUser = localStorage.getItem('discord_user');
+            if (savedUser) {
+                const user = JSON.parse(savedUser);
+                document.getElementById('nav-login-btn').style.display = 'none';
+                document.getElementById('nav-user-profile').style.display = 'flex';
+                document.getElementById('nav-user-name').innerText = user.username;
+                if (user.avatar) {
+                    document.getElementById('nav-user-avatar').src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
+                } else {
+                    document.getElementById('nav-user-avatar').src = "https://cdn.discordapp.com/embed/avatars/0.png";
+                }
+            }
+        });
+    </script>
 </body>
 </html>
