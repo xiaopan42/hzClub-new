@@ -3,124 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>赫茲電競俱樂部 | 專業遊戲俱樂部</title>
+    <title>打手陣容 | 赫茲電競俱樂部</title>
     <style>
-        :root {
-            --primary-color: #00d4ff;
-            --secondary-color: #7000ff;
-            --bg-dark: #0f1218;
-            --card-bg: #1a1e26;
-            --text-light: #e0e0e0;
-        }
-        body {
-            font-family: 'Microsoft JhengHei', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            margin: 0;
-            line-height: 1.6;
-        }
-        /* 導覽列 */
-        nav {
-            background: #07090d;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+        :root { --primary-color: #00d4ff; --secondary-color: #7000ff; --bg-dark: #0f1218; --card-bg: #1a1e26; --text-light: #e0e0e0; }
+        body { font-family: 'Microsoft JhengHei', sans-serif; background-color: var(--bg-dark); color: var(--text-light); margin: 0; }
+        
+        /* ========================================= */
+        /* ✨ 修改：導覽列佈局，讓選單置中、登入靠右 ✨ */
+        /* ========================================= */
+        nav { 
+            background: #07090d; 
+            padding: 15px 20px; 
+            display: flex; 
+            justify-content: space-between; /* 讓左、中、右三個區塊平均分配空間 */
+            align-items: center; 
             border-bottom: 1px solid #222;
         }
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); text-decoration: none; }
-        .nav-links a { color: var(--text-light); text-decoration: none; margin-left: 20px; transition: 0.3s; }
-        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
-
-        header {
-            height: 40vh;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=1200') no-repeat center center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+        .logo { 
+            font-size: 1.5rem; 
+            font-weight: bold; 
+            color: var(--primary-color); 
+            text-decoration: none;
+            flex: 1; /* 讓左邊佔用等比例空間 */
         }
-        .hero-title { font-size: 2.5rem; margin-bottom: 10px; color: var(--primary-color); letter-spacing: 3px; }
+        .nav-links { 
+            display: flex;
+            justify-content: center; /* 讓中間的按鈕精準置中 */
+            flex: 2; /* 讓中間空間變大，確保置中效果 */
+        }
+        .nav-links a { 
+            color: var(--text-light); 
+            text-decoration: none; 
+            margin: 0 15px; /* 左右對稱留白 */
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
         
+        /* ✨ 新增：右上角登入按鈕樣式 ✨ */
+        .nav-auth {
+            display: flex;
+            justify-content: flex-end; /* 讓登入按鈕靠最右邊 */
+            flex: 1; /* 讓右邊佔用等比例空間 */
+        }
+        .login-btn {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 6px 15px;
+            border: 1px solid var(--primary-color);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .login-btn:hover {
+            background: var(--primary-color);
+            color: #000;
+            font-weight: bold;
+        }
+        /* ========================================= */
+
         section { padding: 50px 20px; max-width: 1000px; margin: 0 auto; }
         h2 { text-align: center; border-bottom: 2px solid var(--primary-color); display: inline-block; padding-bottom: 10px; margin-bottom: 40px; }
         
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: var(--card-bg); border-radius: 12px; padding: 20px; border: 1px solid #333; position: relative; }
-        .badge { position: absolute; top: 15px; right: 15px; background: #ff4757; color: white; padding: 3px 8px; font-size: 0.8rem; border-radius: 4px; }
-        .card h3 { color: var(--primary-color); margin-top: 0; }
-        .tag { background: var(--secondary-color); font-size: 0.8rem; padding: 3px 8px; border-radius: 4px; margin-right: 5px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: start; }
         
-        .btn-more { display: block; text-align: center; margin: 30px auto 0; color: var(--primary-color); text-decoration: none; font-weight: bold; }
-        .btn-more:hover { text-decoration: underline; }
+        .card { 
+            background: var(--card-bg); 
+            border-radius: 12px; 
+            padding: 25px; 
+            border: 1px solid #333; 
+            text-align: center; 
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
 
-        .cta-container { text-align: center; background: #131722; padding: 50px 20px; }
-        .btn-dc { background: #5865F2; color: white; padding: 12px 35px; font-size: 1.1rem; text-decoration: none; border-radius: 30px; font-weight: bold; display: inline-block; transition: 0.3s; margin-top: 15px;}
-        .btn-dc:hover { background: #4752c4; box-shadow: 0 0 15px rgba(88, 101, 242, 0.5); }
-        footer { text-align: center; padding: 30px; font-size: 0.8rem; color: #666; background: #07090d; }
+        .player-photo {
+            width: 150px;          
+            height: 150px;         
+            border-radius: 50%;    
+            object-fit: cover;     
+            margin-bottom: 15px;   
+            border: 3px solid #333; 
+            transition: border-color 0.3s ease;
+        }
+        .card:hover .player-photo {
+            border-color: var(--primary-color); 
+        }
+
+        .card h3 { color: var(--primary-color); margin-top: 0; margin-bottom: 10px; }
+        
+        .tags-container { margin-bottom: 15px; display: flex; flex-wrap: wrap; justify-content: center; gap: 5px;}
+        .tag { background: var(--secondary-color); font-size: 0.8rem; padding: 3px 8px; border-radius: 4px; }
+        
+        .bio-text { text-align: left; font-size: 0.95rem; color: #ccc; }
+
+        footer { text-align: center; padding: 30px; font-size: 0.8rem; color: #666; background: #07090d; margin-top: 50px;}
     </style>
 </head>
 <body>
 
     <nav>
         <a href="index.html" class="logo">赫茲電競</a>
+        
         <div class="nav-links">
-            <a href="index.html" class="active">首頁</a>
-            <a href="team.html">團隊陣容</a>
+            <a href="index.html">首頁</a>
+            <a href="team.html" class="active">打手陣容</a>
             <a href="pricing.html">服務價目</a>
+        </div>
+        
+        <div class="nav-auth">
+            <a href="login.html" class="login-btn">登入帳號</a>
         </div>
     </nav>
 
-    <header>
-        <h1 class="hero-title">赫茲電競俱樂部</h1>
-        <p>頂尖戰力 · 高效護航 · 全力守護你的遊戲體驗</p>
-    </header>
-
-    <!-- 精選打手 -->
     <section>
-        <center><h2>🔥 熱門打手</h2></center>
+        <center><h2>👥 俱樂部全體打手陣容</h2></center>
         <div class="grid">
+            
             <div class="card">
-                <span class="badge">最佳馬槍王</span>
-                <h3>店長小潘 (Xiaopan)</h3>
-                <p><span class="tag">極致歐美打法</span><span class="tag">航天是我家</span></p>
-                <p>俱樂部店長，兩字歐美一字狂，我的14有點馬，航天小羅莉，巴克什老鼠，監獄蹲著走。</p>
+                <img src="images/下.jpg" alt="打手小潘" class="player-photo">
+                <h3>打手：小潘 (Xiaopan)</h3>
+                <div class="tags-container">
+                    <span class="tag">擅長角色：威龍.疾風.露娜</span>
+                    <span class="tag">擅長地圖：航天.巴克什</span>
+                </div>
+                <div class="bio-text">
+                    <p><strong>遊玩風格：</strong> 極致歐美打法 </p>
+                    <p><strong>自我介紹：</strong> 俱樂部店長，兩字歐美一字狂，見人我就往地躺。</p>
+                </div>
             </div>
-            <div class="card">
-                <h3>打手小陳 (XiaocheN)</h3>
-                <p><span class="tag">極致中東打法</span><span class="tag">疾風專精</span></p>
-                <p>疾風是我媽媽。高端技術型打手，擅長在複雜局勢中找到突破口。</p>
-            </div>
-        </div>
-        <a href="team.html" class="btn-more">查看所有團隊陣容 →</a>
-    </section>
 
-    <!-- 熱門單類 -->
-    <section style="border-top: 1px solid #222;">
-        <center><h2>✨ 熱門服務項目</h2></center>
-        <div class="grid">
             <div class="card">
-                <span class="badge">熱銷 NO.1</span>
-                <h3>戰術高度護航</h3>
-                <p>針對高難度地圖、特定稀有資源獲取進行全方位武力壓制，全程安全感爆棚。</p>
+                <img src="images/EF2908E0-0733-4C14-A049-035418B86914.jpg" alt="打手小陳" class="player-photo">
+                <h3>打手：小陳 (XiaocheN)</h3>
+                <div class="tags-container">
+                    <span class="tag">擅長角色：疾風.露娜</span>
+                    <span class="tag">擅長地圖：航天</span>
+                </div>
+                <div class="bio-text">
+                    <p><strong>遊玩風格：</strong> 極致中東打法</p>
+                    <p><strong>自我介紹：</strong> 疾風是我媽媽。</p>
+                </div>
             </div>
-            <div class="card">
-                <h3>高端娛樂陪玩</h3>
-                <p>技術與幽默並存，語音全程互動，帶你體驗輕鬆炸魚、歡樂滿點的遊戲局。</p>
-            </div>
+            
         </div>
-        <a href="pricing.html" class="btn-more">查看完整服務價目表 →</a>
-    </section>
-
-    <section class="cta-container">
-        <h2>加入官方 Discord</h2>
-        <p>即時媒合打手、查看最新優惠，點擊下方連結立即加入：</p>
-        <a href="https://discord.gg/5YssuKKB4b" target="_blank" class="btn-dc">點此加入 Discord 伺服器</a>
     </section>
 
     <footer>&copy; 2026 赫茲電競俱樂部. All Rights Reserved.</footer>
