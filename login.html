@@ -11,8 +11,8 @@
         .login-container { background: var(--card-bg); border: 1px solid #333; padding: 40px; border-radius: 12px; text-align: center; max-width: 400px; width: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
         h2 { color: var(--primary-color); margin-bottom: 30px; }
         
-        /* Discord 按鈕樣式 */
-        .discord-btn { display: inline-flex; align-items: center; justify-content: center; background-color: var(--discord-color); color: white; text-decoration: none; padding: 12px 25px; border-radius: 6px; font-size: 1.1rem; font-weight: bold; transition: background 0.3s; width: 80%; }
+        /* 修正：讓 Discord 按鈕看得到且美觀 */
+        .discord-btn { display: inline-flex; align-items: center; justify-content: center; background-color: var(--discord-color); color: white; text-decoration: none; padding: 14px 25px; border-radius: 6px; font-size: 1.1rem; font-weight: bold; transition: background 0.3s; width: 80%; }
         .discord-btn:hover { background-color: #4752C4; }
         
         /* 登入成功後的用戶資訊樣式 */
@@ -27,7 +27,7 @@
     <div class="login-container">
         <div id="login-box">
             <h2>赫茲電競俱樂部</h2>
-            <a href="https://discord.com/oauth2/authorize?client_id=1429779811760603188&response_type=code&redirect_uri=https%3A%2F%2Fhetz-esports.vercel.app%2Flogin&scope=identify">
+            <a class="discord-btn" href="https://discord.com/oauth2/authorize?client_id=1429779811760603188&response_type=token&redirect_uri=https%3A%2F%2Fhetz-esports.vercel.app%2Flogin&scope=identify">
                 使用 Discord 登入
             </a>
         </div>
@@ -41,12 +41,12 @@
     </div>
 
     <script>
-        // 檢查網址列有沒有 Discord 傳回來的 access_token
+        // 檢查網址列有沒有 Discord 傳回來的 access_token (#access_token=...)
         const fragment = new URLSearchParams(window.location.hash.slice(1));
         const accessToken = fragment.get('access_token');
 
         if (accessToken) {
-            // 如果有 token，隱藏登入按鈕，顯示用戶資訊
+            // 如果有 token，隱藏登入按鈕，顯示用戶區塊
             document.getElementById('login-box').style.display = 'none';
             document.getElementById('user-box').style.display = 'block';
 
@@ -56,24 +56,30 @@
                     Authorization: `Bearer ${accessToken}`,
                 },
             })
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error('無法取得 Discord 用戶資料');
+                return res.json();
+            })
             .then(response => {
-                const { username, discriminator, id, avatar } = response;
+                const { username, id, avatar } = response;
                 
                 // 顯示名字
                 document.getElementById('user-name').innerText = `${username}`;
                 
-                // 顯示頭像 (如果他有設定頭像的話)
+                // 顯示頭像
                 if (avatar) {
                     document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${id}/${avatar}.png`;
                 } else {
                     document.getElementById('user-avatar').src = "https://cdn.discordapp.com/embed/avatars/0.png";
                 }
 
-                // 【進階】你可以把登入狀態存進瀏覽器，這樣換頁才不會消失
+                // 儲存登入狀態
                 localStorage.setItem('discord_user', JSON.stringify({ username, id, avatar }));
             })
-            .catch(console.error);
+            .catch(err => {
+                console.error(err);
+                document.getElementById('user-name').innerText = "登入失敗，請重新嘗試";
+            });
         }
     </script>
 </body>

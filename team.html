@@ -14,10 +14,69 @@
             --text-light: #e0e0e0; 
         }
         body { font-family: 'Microsoft JhengHei', sans-serif; background-color: var(--bg-dark); color: var(--text-light); margin: 0; }
-        nav { background: #07090d; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222;}
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); text-decoration: none; }
-        .nav-links a { color: var(--text-light); text-decoration: none; margin-left: 20px; }
-        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
+        
+        /* ========================================= */
+        /* 🧭 導覽列精準置中三欄排版 */
+        /* ========================================= */
+        nav { 
+            background: #07090d; 
+            padding: 15px 20px; 
+            display: flex; 
+            align-items: center; 
+            border-bottom: 1px solid #222;
+        }
+        
+        /* 1. 左邊欄：Logo 區塊固定寬度 */
+        .logo { 
+            font-size: 1.5rem; 
+            font-weight: bold; 
+            color: var(--primary-color); 
+            text-decoration: none; 
+            width: 200px; 
+            box-sizing: border-box;
+        }
+        
+        /* 2. 中間欄：選單區塊自動延伸並置中 */
+        .nav-links { 
+            flex: 1; 
+            text-align: center; 
+        }
+        .nav-links a { 
+            color: var(--text-light); 
+            text-decoration: none; 
+            margin: 0 15px; 
+            font-size: 1.05rem;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active { 
+            color: var(--primary-color); 
+        }
+        
+        /* 3. 右邊欄：登入按鈕區塊與左邊等寬，達成完美平衡 */
+        .nav-auth { 
+            width: 200px; 
+            text-align: right; 
+            box-sizing: border-box;
+        }
+        
+        /* 登入按鈕基本樣式 */
+        .nav-login-btn { 
+            display: inline-block;
+            background: transparent; 
+            color: var(--primary-color); 
+            border: 1px solid var(--primary-color); 
+            padding: 6px 16px; 
+            border-radius: 4px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        .nav-login-btn:hover { 
+            background: var(--primary-color); 
+            color: #000; 
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.4);
+        }
         
         section { padding: 40px 20px; max-width: 1000px; margin: 0 auto; }
         
@@ -92,10 +151,15 @@
 
     <nav>
         <a href="index.html" class="logo">赫茲電競</a>
+        
         <div class="nav-links">
             <a href="index.html">首頁</a>
-            <a href="team.html" class="active">團隊陣容</a>
-            <a href="pricing.html">服務價目</a>
+            <a href="team" class="active">團隊陣容</a>
+            <a href="pricing">服務價目</a>
+        </div>
+        
+        <div class="nav-auth">
+            <a href="login" class="nav-login-btn">會員登入</a>
         </div>
     </nav>
 
@@ -120,7 +184,7 @@
                 </div>
             </div>
             <div class="card card-mgmt">
-                <img src="images\57bb127940c0c24d121fd2a4a7159a8e.png" alt="客服魚茫" class="player-photo">
+                <img src="images/57bb127940c0c24d121fd2a4a7159a8e.png" alt="客服魚茫" class="player-photo">
                 <h3>客服：魚茫 (fish)</h3>
                 <div class="tags-container">
                     <span class="tag-mgmt">俱樂部客服</span>
@@ -152,8 +216,10 @@
                 <div class="bio-text">
                     <p><strong>個人簡介：</strong> 絕不吃壓力之人，疾風是我媽媽。</p>
                 </div>
+            </div>
+            
             <div class="card card-player">
-                <img src="images\IMG_6530_Original.jpg" alt="打手小陳" class="player-photo">
+                <img src="images/IMG_6530_Original.jpg" alt="打手馬克杯" class="player-photo">
                 <h3>打手：馬克杯 (MakCup)</h3>
                 <div class="tags-container">
                     <span class="tag-player">擅長地圖：航天</span>
@@ -164,7 +230,7 @@
                 </div>
             </div>
 
-            </div>
+        </div>
     </section>
 
     <footer>&copy; 2026 赫茲電競俱樂部. All Rights Reserved.</footer>
