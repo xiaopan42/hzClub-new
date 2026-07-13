@@ -7,35 +7,212 @@
 
 <style>
 body {
-    background: #0a0f1f;
-    color: white;
-    font-family: Arial;
+    margin: 0;
+    min-height: 100vh;
+    background: #07090f;
+    color: #f2f7ff;
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    padding: 30px;
 }
 .container {
-    background: #111;
-    padding: 30px;
-    border-radius: 10px;
-    width: 350px;
+    width: min(1300px, 100%);
+    background: rgba(10, 16, 31, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
+    overflow: hidden;
 }
-input, select {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    background: #222;
-    border: none;
-    color: white;
+.order-header {
+    padding: 30px 40px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
-button {
+.order-header h2 {
+    margin: 0;
+    font-size: 2rem;
+}
+.order-layout {
+    display: grid;
+    grid-template-columns: 220px minmax(360px, 1fr) 380px;
+    gap: 20px;
+    padding: 20px 40px 40px;
+}
+.section-header h3 {
+    margin: 0 0 8px;
+    font-size: 1.2rem;
+    color: #00eaff;
+}
+.section-header p {
+    margin: 0;
+    color: #b5c7db;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+.category-panel,
+.product-panel,
+.cart-panel {
+    background: rgba(6, 13, 30, 0.75);
+    border: 1px solid rgba(0, 234, 255, 0.12);
+    border-radius: 20px;
+    padding: 20px;
+    min-height: 520px;
+}
+.category-list {
+    display: grid;
+    gap: 10px;
+    margin-top: 20px;
+}
+.category-item {
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+.category-item.active,
+.category-item:hover {
+    background: rgba(0, 234, 255, 0.16);
+    transform: translateX(2px);
+}
+.category-item h4 {
+    margin: 0 0 4px;
+    font-size: 1rem;
+}
+.category-item p {
+    margin: 0;
+    color: #aac4db;
+    font-size: 0.9rem;
+}
+.account-info {
+    margin-top: 25px;
+    padding: 18px;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.account-info label,
+.discord-line {
+    display: block;
+    margin-bottom: 10px;
+    color: #c8d5ee;
+}
+.account-info input {
     width: 100%;
     padding: 12px;
-    background: #00eaff;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #101826;
+    color: #f3f8ff;
+}
+.order-message {
+    margin-top: 12px;
+    color: #ffb347;
+    min-height: 24px;
+}
+.item-list {
+    margin-top: 20px;
+    display: grid;
+    gap: 14px;
+}
+.item-card,
+.product-card,
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.item-card div,
+.product-card div {
+    max-width: 65%;
+}
+.item-title,
+.product-name,
+.cart-item-title {
+    margin: 0 0 6px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.item-price,
+.product-price,
+.cart-item-detail,
+.subtotal-value {
+    margin: 0;
+    color: #9dbcff;
+    font-size: 0.95rem;
+}
+.item-card button,
+.product-card button,
+.remove-btn,
+#checkout-btn {
     border: none;
+    border-radius: 14px;
+    padding: 10px 16px;
+    background: #00eaff;
+    color: #07090f;
     font-weight: bold;
     cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+.item-card button:hover,
+.product-card button:hover,
+#checkout-btn:hover {
+    transform: translateY(-1px);
+    background: #00c4d9;
+}
+.product-panel {
+    display: flex;
+    flex-direction: column;
+}
+.product-panel .section-header {
+    margin-bottom: 18px;
+}
+.product-list {
+    display: grid;
+    gap: 16px;
+}
+.product-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+.product-card p {
+    margin: 0;
+    color: #c0d4f3;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+.cart-items {
+    display: grid;
+    gap: 14px;
+    min-height: 220px;
+}
+.empty-cart {
+    margin: 0;
+    color: #8a9db8;
+}
+.cart-summary {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: grid;
+    gap: 16px;
+}
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    color: #d7e3ff;
+}
+.summary-row span:first-child {
+    color: #a1b6d8;
+}
+#checkout-btn {
+    width: 100%;
 }
 </style>
 
@@ -44,48 +221,210 @@ button {
 <body>
 
 <div class="container">
-<h2>三角洲下單</h2>
+    <div class="order-header">
+        <h2>三角洲點單區</h2>
+    </div>
+    <div class="order-layout">
+        <div class="category-panel">
+            <div class="section-header">
+                <h3>價目表分類</h3>
+                <p>左側選擇分類，中心查看單項與價格，右側進行購物車與付款。</p>
+            </div>
+            <div id="category-list" class="category-list"></div>
+        </div>
 
-<input id="name" placeholder="你的名字">
-<div id="discord-info" style="margin:10px 0; color:#ccc;">
-    Discord 帳號：<span id="discord-user">未登入</span>
-</div>
-<select id="service">
-<option>1028萬 - 600TWD</option>
-<option>2300萬 - 1300TWD</option>
-<option>3600萬 - 2500TWD</option>
-<option>5500萬 - 3500TWD</option>
-<option>1億 - 6500TWD</option>
-</select>
+        <div class="product-panel">
+            <div class="section-header">
+                <h3 id="category-title">服務項目</h3>
+                <p id="category-desc">請從左側分類選擇一種類別。</p>
+            </div>
+            <div class="account-info">
+                <label>你的名字</label>
+                <input id="name" placeholder="你的名字">
+                <div class="discord-line">Discord 帳號：<span id="discord-user">未登入</span></div>
+                <div id="order-message" class="order-message">請先登入 Discord 才能下單。</div>
+            </div>
+            <div id="product-list" class="product-list"></div>
+        </div>
 
-<button id="order-btn" onclick="sendOrder()">送出訂單</button>
-<p id="order-message" style="color:#ff8c00; margin-top: 12px;"></p>
-
+        <div class="cart-panel">
+            <div class="section-header">
+                <h3>購物車</h3>
+            </div>
+            <div id="cart-items" class="cart-items">
+                <p class="empty-cart">尚未加入任何項目</p>
+            </div>
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>小計</span>
+                    <span id="subtotal">0 TWD</span>
+                </div>
+                <button id="checkout-btn" disabled onclick="sendOrder()">付款</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
+const categories = [
+    {
+        id: 'small',
+        title: '小單',
+        description: '快速上分、低消單價',
+        items: [
+            { id: '1028', name: '1028萬', price: 600, label: '1028萬 - 600TWD', description: '適合小額需求，快速完成。' },
+            { id: '2300', name: '2300萬', price: 1300, label: '2300萬 - 1300TWD', description: '熱門選擇，中量上分服務。' }
+        ]
+    },
+    {
+        id: 'medium',
+        title: '中單',
+        description: '中等數量的穩定服務',
+        items: [
+            { id: '3600', name: '3600萬', price: 2500, label: '3600萬 - 2500TWD', description: '適合進階需求，服務品質穩定。' }
+        ]
+    },
+    {
+        id: 'large',
+        title: '大單',
+        description: '高額需求、專業團隊服務',
+        items: [
+            { id: '5500', name: '5500萬', price: 3500, label: '5500萬 - 3500TWD', description: '高階單，豪華服務體驗。' },
+            { id: '10000', name: '1億', price: 6500, label: '1億 - 6500TWD', description: '最頂級方案，全面服務。' }
+        ]
+    }
+];
+
+let activeCategory = categories[0].id;
+let cart = {};
+
 function getDiscordUser() {
     const savedUser = localStorage.getItem('discord_user');
     return savedUser ? JSON.parse(savedUser) : null;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+function formatCurrency(value) {
+    return `${value.toLocaleString()} TWD`;
+}
+
+function setActiveCategory(categoryId) {
+    activeCategory = categoryId;
+    renderCategories();
+    renderProducts();
+}
+
+function renderCategories() {
+    const listEl = document.getElementById('category-list');
+    listEl.innerHTML = categories.map(category => `
+        <div class="category-item ${category.id === activeCategory ? 'active' : ''}" onclick="setActiveCategory('${category.id}')">
+            <h4>${category.title}</h4>
+            <p>${category.description}</p>
+        </div>
+    `).join('');
+}
+
+function renderProducts() {
+    const category = categories.find(c => c.id === activeCategory);
+    const titleEl = document.getElementById('category-title');
+    const descEl = document.getElementById('category-desc');
+    const productEl = document.getElementById('product-list');
+
+    titleEl.innerText = category.title;
+    descEl.innerText = category.description;
+
+    productEl.innerHTML = category.items.map(item => `
+        <div class="product-card">
+            <div>
+                <div class="product-name">${item.name}</div>
+                <p>${item.description}</p>
+                <div class="product-price">${formatCurrency(item.price)}</div>
+            </div>
+            <button type="button" onclick="addToCart('${item.id}')">加入購物車</button>
+        </div>
+    `).join('');
+}
+
+function updateCartUI() {
+    const cartEl = document.getElementById('cart-items');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const subtotalEl = document.getElementById('subtotal');
+
+    const cartEntries = Object.values(cart);
+    if (!cartEntries.length) {
+        cartEl.innerHTML = '<p class="empty-cart">尚未加入任何項目</p>';
+        subtotalEl.innerText = '0 TWD';
+        checkoutBtn.disabled = true;
+        return;
+    }
+
+    const rows = cartEntries.map(item => `
+        <div class="cart-item">
+            <div>
+                <div class="cart-item-title">${item.name}</div>
+                <div class="cart-item-detail">${formatCurrency(item.price)} x ${item.quantity}</div>
+            </div>
+            <button type="button" class="remove-btn" onclick="removeFromCart('${item.id}')">移除</button>
+        </div>
+    `).join('');
+
+    cartEl.innerHTML = rows;
+    const subtotal = cartEntries.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    subtotalEl.innerText = formatCurrency(subtotal);
+    checkoutBtn.disabled = false;
+}
+
+function findItemById(itemId) {
+    for (const category of categories) {
+        const item = category.items.find(i => i.id === itemId);
+        if (item) return item;
+    }
+    return null;
+}
+
+function addToCart(itemId) {
     const user = getDiscordUser();
-    const orderBtn = document.getElementById('order-btn');
+    const orderMessage = document.getElementById('order-message');
+    if (!user) {
+        orderMessage.innerText = '請先登入 Discord 才能加入購物車。';
+        return;
+    }
+
+    const item = findItemById(itemId);
+    if (!item) return;
+
+    if (!cart[itemId]) {
+        cart[itemId] = {...item, quantity: 1};
+    } else {
+        cart[itemId].quantity += 1;
+    }
+
+    updateCartUI();
+    orderMessage.innerText = '';
+}
+
+function removeFromCart(itemId) {
+    if (!cart[itemId]) return;
+    delete cart[itemId];
+    updateCartUI();
+}
+
+function renderLoginState() {
+    const user = getDiscordUser();
     const discordUserEl = document.getElementById('discord-user');
     const orderMessage = document.getElementById('order-message');
+    const checkoutBtn = document.getElementById('checkout-btn');
 
     if (!user) {
-        orderBtn.disabled = true;
-        orderBtn.style.opacity = '0.6';
         discordUserEl.innerText = '未登入';
         orderMessage.innerText = '請先登入 Discord 才能下單。';
+        checkoutBtn.disabled = true;
         return;
     }
 
     const discordTag = user.discriminator ? `${user.username}#${user.discriminator}` : user.username;
     discordUserEl.innerText = discordTag;
-});
+    orderMessage.innerText = '';
+}
 
 async function sendOrder() {
     const user = getDiscordUser();
@@ -101,12 +440,20 @@ async function sendOrder() {
         return;
     }
 
+    const cartEntries = Object.values(cart);
+    if (!cartEntries.length) {
+        alert('請先加入至少一個服務項目');
+        return;
+    }
+
+    const service = cartEntries.map(item => `${item.label} x${item.quantity}`).join('、');
     const discordTag = user.discriminator ? `${user.username}#${user.discriminator}` : user.username;
+
     const data = {
         name,
         discord: discordTag,
         discord_id: user.id,
-        service: document.getElementById('service').value
+        service
     };
 
     const res = await fetch('/api/order', {
@@ -117,10 +464,21 @@ async function sendOrder() {
 
     if (res.ok) {
         alert('下單成功！');
+        cart = {};
+        updateCartUI();
     } else {
         alert('下單失敗，請稍後再試');
     }
 }
+
+window.sendOrder = sendOrder;
+
+window.addEventListener('DOMContentLoaded', () => {
+    renderCategories();
+    renderProducts();
+    renderLoginState();
+    updateCartUI();
+});
 </script>
 
 </body>
