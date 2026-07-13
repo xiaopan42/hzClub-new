@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>HeTz 接單系統</title>
+
+<style>
+body {
+    background: #0a0f1f;
+    color: white;
+    font-family: Arial;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    background: #111;
+    padding: 30px;
+    border-radius: 10px;
+    width: 350px;
+}
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background: #222;
+    border: none;
+    color: white;
+}
+button {
+    width: 100%;
+    padding: 12px;
+    background: #00eaff;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+<h2>三角洲下單</h2>
+
+<input id="name" placeholder="你的名字">
+<input id="discord" placeholder="Discord ID (例：abc#1234)">
+<select id="service">
+<option>1028萬 - 600TWD</option>
+<option>2300萬 - 1300TWD</option>
+<option>3600萬 - 2500TWD</option>
+<option>5500萬 - 3500TWD</option>
+<option>1億 - 6500TWD</option>
+</select>
+
+<button onclick="sendOrder()">送出訂單</button>
+
+</div>
+
+<script>
+async function sendOrder() {
+    const data = {
+        name: document.getElementById('name').value,
+        discord: document.getElementById('discord').value,
+        service: document.getElementById('service').value
+    };
+
+    const res = await fetch('/api/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+
+    if (res.ok) {
+        alert("下單成功！");
+    } else {
+        alert("失敗");
+    }
+}
+</script>
+
+</body>
+</html>
