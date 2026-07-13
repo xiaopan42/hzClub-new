@@ -47,7 +47,9 @@ button {
 <h2>三角洲下單</h2>
 
 <input id="name" placeholder="你的名字">
-<input id="discord" placeholder="Discord ID (例：abc#1234)">
+<div id="discord-info" style="margin:10px 0; color:#ccc;">
+    Discord 帳號：<span id="discord-user">未登入</span>
+</div>
 <select id="service">
 <option>1028萬 - 600TWD</option>
 <option>2300萬 - 1300TWD</option>
@@ -56,15 +58,54 @@ button {
 <option>1億 - 6500TWD</option>
 </select>
 
-<button onclick="sendOrder()">送出訂單</button>
+<button id="order-btn" onclick="sendOrder()">送出訂單</button>
+<p id="order-message" style="color:#ff8c00; margin-top: 12px;"></p>
 
 </div>
 
 <script>
+function getDiscordUser() {
+    const savedUser = localStorage.getItem('discord_user');
+    return savedUser ? JSON.parse(savedUser) : null;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const user = getDiscordUser();
+    const orderBtn = document.getElementById('order-btn');
+    const discordUserEl = document.getElementById('discord-user');
+    const orderMessage = document.getElementById('order-message');
+
+    if (!user) {
+        orderBtn.disabled = true;
+        orderBtn.style.opacity = '0.6';
+        discordUserEl.innerText = '未登入';
+        orderMessage.innerText = '請先登入 Discord 才能下單。';
+        return;
+    }
+
+    const discordTag = user.discriminator ? `${user.username}#${user.discriminator}` : user.username;
+    discordUserEl.innerText = discordTag;
+});
+
 async function sendOrder() {
+    const user = getDiscordUser();
+    if (!user) {
+        alert('請先登入 Discord 才能下單');
+        window.location.href = 'login.html';
+        return;
+    }
+
+    const name = document.getElementById('name').value.trim();
+    if (!name) {
+        alert('請填寫你的名字');
+        return;
+    }
+
+    const discordTag = user.discriminator ? `${user.username}#${user.discriminator}` : user.username;
     const data = {
-        name: document.getElementById('name').value,
-        discord: document.getElementById('discord').value,
+        name,
+        discord: discordTag,
+        discord_id: user.id,
         service: document.getElementById('service').value
     };
 
@@ -75,9 +116,9 @@ async function sendOrder() {
     });
 
     if (res.ok) {
-        alert("下單成功！");
+        alert('下單成功！');
     } else {
-        alert("失敗");
+        alert('下單失敗，請稍後再試');
     }
 }
 </script>

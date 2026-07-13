@@ -112,7 +112,6 @@ h2 {
 
 <div class="login-container">
 
-```
 <!-- 登入區 -->
 <div id="login-box">
     <h2>HeTz 電競俱樂部</h2>
@@ -131,7 +130,6 @@ h2 {
     <a href="index.html" class="btn home-btn">回首頁</a>
     <button id="logout-btn" class="btn logout-btn">登出</button>
 </div>
-```
 
 </div>
 
@@ -159,9 +157,9 @@ if (accessToken) {
         return res.json();
     })
     .then(user => {
-        const { username, id, avatar } = user;
+        const { username, id, avatar, discriminator } = user;
 
-        const userData = { username, id, avatar };
+        const userData = { username, id, avatar, discriminator };
 
         // 顯示
         showUser(userData);
@@ -182,7 +180,8 @@ function showUser(user) {
     document.getElementById('login-box').style.display = 'none';
     document.getElementById('user-box').style.display = 'block';
 
-    document.getElementById('user-name').innerText = user.username;
+    const displayName = user.discriminator ? `${user.username}#${user.discriminator}` : user.username;
+    document.getElementById('user-name').innerText = displayName;
 
     if (user.avatar) {
         document.getElementById('user-avatar').src =
