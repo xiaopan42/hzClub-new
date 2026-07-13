@@ -1,151 +1,321 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>首頁 | HeTz 俱樂部</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首頁 | HeTz 俱樂部</title>
+    <style>
+        :root { 
+            --primary-color: #00d4ff; 
+            --secondary-color: #7000ff; 
+            --bg-dark: #07090d; 
+            --card-bg: rgba(20, 24, 34, 0.75); 
+            --text-light: #e0e0e0; 
+        }
+        
+        /* ========================================= */
+        /* 馃寣 鍏ㄧ珯澶ц儗鏅細浣跨敤浣犳彁渚涚殑楂樿唱鎰熼浕绔跺ぇ鍦?*/
+        /* ========================================= */
+        body { 
+            font-family: 'Microsoft JhengHei Bold', sans-serif; 
+            background-image: linear-gradient(to bottom, rgba(7, 9, 13, 0.4) 0%, rgba(7, 9, 13, 0.60) 60%, #07090d 100%), 
+                              url('images/fa658c1a-e381-46ba-a934-4355a43f190c.png'); /* 馃挕 纰轰繚鍦栫墖妾斿悕鑸囪矾寰戞纰?*/
+            background-size: cover;
+            background-position: center top;
+            background-attachment: fixed; /* 婊惧嫊鏅傝儗鏅浐瀹氾紝鐢㈢敓楂樼礆绔嬮珨鎰?*/
+            color: var(--text-light); 
+            margin: 0; 
+            overflow-x: hidden; 
+        }
+        
+        /* 馃Л 灏庤鍒椾綀灞€ */
+        nav { 
+            background: rgba(7, 9, 13, 0.85); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 15px 20px; 
+            display: flex; 
+            align-items: center; 
+            border-bottom: 1px solid rgba(26, 31, 44, 0.6);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { 
+            font-size: 1.5rem; 
+            font-weight: bold; 
+            color: var(--primary-color); 
+            text-decoration: none;
+            width: 200px;
+            box-sizing: border-box;
+            letter-spacing: 1px;
+        }
+        .nav-links { 
+            flex: 1; 
+            text-align: center; 
+        }
+        .nav-links a { 
+            color: var(--text-light); 
+            text-decoration: none; 
+            margin: 0 15px; 
+            font-size: 1.05rem;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
+        
+        .nav-auth {
+            width: 200px;
+            display: flex;
+            justify-content: flex-end; 
+            align-items: center;
+            box-sizing: border-box;
+            gap: 10px;
+        }
+        .login-btn {
+            display: inline-block;
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 6px 16px;
+            border: 1px solid var(--primary-color);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            font-weight: bold;
+            background: rgba(0, 212, 255, 0.05);
+        }
+        .login-btn:hover {
+            background: var(--primary-color);
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+        }
+        .user-profile {
+            display: none; 
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+        }
+        .nav-username { font-size: 0.95rem; }
 
-<style>
-:root { 
-    --primary-color: #00d4ff; 
-    --secondary-color: #7000ff; 
-    --bg-dark: #07090d; 
-    --card-bg: rgba(20, 24, 34, 0.75); 
-    --text-light: #e0e0e0; 
-}
+        /* ========================================= */
+        /* 馃幁 涓昏瑕哄崁锛堟椤岃垏澶ч鎸夐垥锛?*/
+        /* ========================================= */
+        .hero-section-wrapper {
+            width: 100%;
+            padding-top: 60px;
+        }
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+        }
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin: 0 0 25px 0;
+            color: #fff;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.6), 0 0 10px rgba(112, 0, 25ff, 0.5);
+            letter-spacing: 4px;
+        }
+        .hero-buttons { 
+            display: flex; 
+            gap: 20px; 
+            justify-content: center;
+        }
+        .btn-main {
+            background: var(--primary-color);
+            color: #000;
+            text-decoration: none;
+            padding: 14px 36px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
+        }
+        .btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0, 212, 255, 0.7);
+        }
+        .btn-sub {
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 36px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: background 0.2s, border-color 0.2s, transform 0.2s;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        .btn-sub:hover {
+            transform: translateY(-3px);
+            background: rgba(255,255,255,0.15);
+            border-color: #fff;
+        }
 
-body { 
-    font-family: 'Microsoft JhengHei Bold', sans-serif; 
-    background-image: linear-gradient(to bottom, rgba(7, 9, 13, 0.4), #07090d),
-                      url('images/bg.png');
-    background-size: cover;
-    background-position: center;
-    color: var(--text-light); 
-    margin: 0; 
-}
+        .video-cinema-section {
+            max-width: 1000px; /* 寰鏈€澶у搴︼紝璁?16:9 鍦ㄥぇ铻㈠箷涓嬮珮搴︽洿閬╀腑 */
+            margin: 40px auto 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        .hero-display {
+            width: 100%;
+            background: #0b0e14;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 16px;
+            aspect-ratio: 16 / 9; /* 馃挕 瀹岀編鍥炲京 16:9 姝ｅ父閬婃埐褰辩墖姣斾緥 */
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 30px rgba(0, 212, 255, 0.1);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hero-display:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 40px rgba(0, 212, 255, 0.25);
+        }
+        .hero-display video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* 馃挕 鏀圭敤 contain 纰轰繚褰辩墖涓嶇鎬庢ǎ閮戒笉鏈冭鍒囧埌闋熬 */
+            display: block;
+        }
 
-/* 導覽列 */
-nav { 
-    background: rgba(7, 9, 13, 0.85); 
-    padding: 15px 20px; 
-    display: flex; 
-    align-items: center; 
-}
+        /* 涓嬪崐閮ㄦ墦鎵嬪収瀹瑰崁 */
+        .content-section { padding: 100px 20px 80px 20px; max-width: 1000px; margin: 0 auto; }
+        h2 { text-align: center; border-bottom: 2px solid var(--primary-color); display: inline-block; padding-bottom: 10px; margin-bottom: 50px; font-size: 2rem; letter-spacing: 2px; text-shadow: 0 0 10px rgba(0,212,255,0.3); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; align-items: start; }
+        
+        /* 鍗＄墖姣涚幓鐠冪櫦鍏夊崌绱?*/
+        .card { 
+            background: var(--card-bg); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 16px; 
+            padding: 30px; 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            text-align: center; 
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; 
+        }
+        .card:hover { 
+            transform: translateY(-8px); 
+            border-color: var(--primary-color); 
+            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.2);
+        }
+        
+        .player-photo { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; border: 3px solid rgba(255,255,255,0.1); transition: border-color 0.3s ease, transform 0.3s ease; }
+        .card:hover .player-photo { border-color: var(--primary-color); transform: scale(1.05); }
+        .card h3 { color: var(--primary-color); margin-top: 0; margin-bottom: 15px; font-size: 1.35rem; }
+        .tags-container { margin-bottom: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px;}
+        .tag { background: var(--secondary-color); font-size: 0.8rem; padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold; }
+        .bio-text { text-align: left; font-size: 0.95rem; color: #d0d0d0; line-height: 1.6; }
+        .bio-text p { margin: 8px 0; }
 
-.logo { 
-    color: var(--primary-color); 
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.nav-links {
-    flex: 1;
-    text-align: center;
-}
-
-.nav-links a {
-    color: white;
-    margin: 0 15px;
-    text-decoration: none;
-}
-
-.nav-links a:hover {
-    color: var(--primary-color);
-}
-
-/* Hero */
-.hero {
-    text-align: center;
-    padding: 80px 20px;
-}
-
-.hero h1 {
-    font-size: 60px;
-}
-
-/* 按鈕 */
-.btn {
-    padding: 12px 30px;
-    margin: 10px;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-.btn-main {
-    background: var(--primary-color);
-    color: black;
-}
-
-.btn-sub {
-    border: 1px solid white;
-    color: white;
-}
-
-/* 卡片 */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-    gap: 20px;
-    padding: 40px;
-}
-
-.card {
-    background: var(--card-bg);
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.card img {
-    width: 120px;
-    border-radius: 50%;
-}
-
-</style>
+        footer { text-align: center; padding: 40px 20px; font-size: 0.85rem; color: #555; background: #040507; margin-top: 80px; border-top: 1px solid rgba(255,255,255,0.02); letter-spacing: 1px;}
+    </style>
 </head>
-
 <body>
 
-<nav>
-    <a href="/index.html" class="logo">HeTz 俱樂部</a>
+    <nav>
+        <a href="index.html" class="logo">HeTz 俱樂部</a>
+        <div class="nav-links">
+            <a href="index.html" class="active">首頁</a>
+            <a href="team">打手陣容</a>
+            <a href="pricing">服務價目</a>
+            <a href="order">立即下單</a>
+        </div>
+        <div class="nav-auth">
+            <a href="login" id="nav-login-btn" class="login-btn">登入帳號</a>
+            <div id="nav-user-profile" class="user-profile">
+                <img id="nav-user-avatar" class="nav-avatar" src="" alt="頭像">
+                <span id="nav-user-name" class="nav-username">玩家</span>
+            </div>
+        </div>
+    </nav>
 
-    <div class="nav-links">
-        <a href="/index.html">首頁</a>
-        <a href="/team.html">打手陣容</a>
-        <a href="/pricing.html">服務價目</a>
-        <a href="/order.html">立即下單</a>
+    <div class="hero-section-wrapper">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">HeTz 俱樂部</h1>
+                <div class="hero-buttons">
+                    <a href="https://discord.gg/5YssuKKB4b" target="_blank" class="btn-main">進入 Discord 群組</a>
+                    <a href="pricing" class="btn-sub">前往價目表</a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <a href="/login.html" class="btn btn-sub">登入</a>
-</nav>
+    <div class="video-cinema-section">
+        <div class="hero-display">
+            <video autoplay loop muted playsinline controls>
+                <source src="videos/Videos.mp4" type="video/mp4">
+                您的瀏覽器不支援影片播放。
+            </video>
+        </div>
+    </div>
 
-<div class="hero">
-    <h1>HeTz 俱樂部</h1>
+    <section class="content-section">
+        <center><h2>馃懃 淇辨▊閮ㄩ噾鐗屾墦鎵媆</h2></center>
+        <div class="grid">
+            
+            <div class="card">
+                <img src="images/涓?jpg" alt="鎵撴墜灏忔綐" class="player-photo">
+                <h3>鎵撴墜锛氬皬娼?(Xiaopan)</h3>
+                <div class="tags-container">
+                    <span class="tag">鎿呴暦瑙掕壊锛氬▉榫?鐤鹃ⅷ.闇插</span>
+                    <span class="tag">鎿呴暦鍦板湒锛氳埅澶?宸村厠浠€</span>
+                </div>
+                <div class="bio-text">
+                    <p><strong>閬婄帺棰ㄦ牸锛歕</strong> 妤佃嚧姝愮編鎵撴硶 </p>
+                    <p><strong>鑷垜浠嬬垂锛歕</strong> 淇辨▊閮ㄥ簵闀凤紝鍏╁瓧姝愮編涓€瀛楃媯锛岃浜烘垜灏卞線鍦拌汉銆俓</p>
+                </div>
+            </div>
 
-    <a href="https://discord.gg/5YssuKKB4b" target="_blank" class="btn btn-main">
-        進入 Discord
-    </a>
+            <div class="card">
+                <img src="images/EF2908E0-0733-4C14-A049-035418B86914.jpg" alt="打手小陳" class="player-photo">
+                <h3>打手：小陳 (XiaocheN)</h3>
+                <div class="tags-container">
+                    <span class="tag">擅長角色：疾風.露娜</span>
+                    <span class="tag">擅長地圖：航天</span>
+                </div>
+                <div class="bio-text">
+                    <p><strong>遊玩風格：</strong> 極致中東打法</p>
+                    <p><strong>自我介紹：</strong> 疾風是我媽媽。</p>
+                </div>
+            </div>
+            
+        </div>
+    </section>
 
-    <a href="/pricing.html" class="btn btn-sub">
-        查看價目
-    </a>
-</div>
+    <footer>&copy; 2026 HeTz 俱樂部. All Rights Reserved.</footer>
 
-<section class="grid">
-
-<div class="card">
-    <img src="images/店長.jpg">
-    <h3>打手：小潘</h3>
-    <p>專精：三角洲</p>
-</div>
-
-<div class="card">
-    <img src="images/player2.jpg">
-    <h3>打手：阿豪</h3>
-    <p>專精：快速代打</p>
-</div>
-
-</section>
-
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const savedUser = localStorage.getItem('discord_user');
+            if (savedUser) {
+                const user = JSON.parse(savedUser);
+                document.getElementById('nav-login-btn').style.display = 'none';
+                document.getElementById('nav-user-profile').style.display = 'flex';
+                document.getElementById('nav-user-name').innerText = user.username;
+                if (user.avatar) {
+                    document.getElementById('nav-user-avatar').src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
+                } else {
+                    document.getElementById('nav-user-avatar').src = "https://cdn.discordapp.com/embed/avatars/0.png";
+                }
+            }
+        });
+    </script>
 </body>
 </html>
