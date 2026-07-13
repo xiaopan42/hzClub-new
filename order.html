@@ -98,7 +98,9 @@ body {
     margin-bottom: 10px;
     color: #c8d5ee;
 }
-.account-info input {
+.account-info input,
+.cart-form input,
+.cart-form textarea {
     width: 100%;
     padding: 12px;
     border-radius: 12px;
@@ -106,8 +108,21 @@ body {
     background: #101826;
     color: #f3f8ff;
 }
+.cart-form {
+    display: grid;
+    gap: 12px;
+    margin-top: 20px;
+}
+.cart-form label {
+    color: #c8d5ee;
+    font-size: 0.95rem;
+}
+.cart-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
 .order-message {
-    margin-top: 12px;
+    margin-top: 6px;
     color: #ffb347;
     min-height: 24px;
 }
@@ -238,12 +253,6 @@ body {
                 <h3 id="category-title">服務項目</h3>
                 <p id="category-desc">請從左側分類選擇一種類別。</p>
             </div>
-            <div class="account-info">
-                <label>你的名字</label>
-                <input id="name" placeholder="你的名字">
-                <div class="discord-line">Discord 帳號：<span id="discord-user">未登入</span></div>
-                <div id="order-message" class="order-message">請先登入 Discord 才能下單。</div>
-            </div>
             <div id="product-list" class="product-list"></div>
         </div>
 
@@ -254,12 +263,21 @@ body {
             <div id="cart-items" class="cart-items">
                 <p class="empty-cart">尚未加入任何項目</p>
             </div>
+            <div class="cart-form">
+                <label>你的名字（稱呼）</label>
+                <input id="name" placeholder="請輸入你的名字">
+                <label>Discord 帳號（自動帶入）</label>
+                <input id="discord-display" disabled>
+                <label>備註（指定打手，可選）</label>
+                <textarea id="note" placeholder="例如：指定小潘、指定小陳、優先速度"></textarea>
+                <div id="order-message" class="order-message">請先登入 Discord 才能下單。</div>
+            </div>
             <div class="cart-summary">
                 <div class="summary-row">
                     <span>小計</span>
                     <span id="subtotal">0 TWD</span>
                 </div>
-                <button id="checkout-btn" disabled onclick="sendOrder()">付款</button>
+                <button id="checkout-btn" disabled onclick="sendOrder()">下單</button>
             </div>
         </div>
     </div>
@@ -411,11 +429,13 @@ function removeFromCart(itemId) {
 function renderLoginState() {
     const user = getDiscordUser();
     const discordUserEl = document.getElementById('discord-user');
+    const discordDisplay = document.getElementById('discord-display');
     const orderMessage = document.getElementById('order-message');
     const checkoutBtn = document.getElementById('checkout-btn');
 
     if (!user) {
         discordUserEl.innerText = '未登入';
+        discordDisplay.value = '';
         orderMessage.innerText = '請先登入 Discord 才能下單。';
         checkoutBtn.disabled = true;
         return;
@@ -423,6 +443,7 @@ function renderLoginState() {
 
     const discordTag = user.discriminator ? `${user.username}#${user.discriminator}` : user.username;
     discordUserEl.innerText = discordTag;
+    discordDisplay.value = discordTag;
     orderMessage.innerText = '';
 }
 
@@ -446,6 +467,7 @@ async function sendOrder() {
         return;
     }
 
+    const note = document.getElementById('note').value.trim();
     const service = cartEntries.map(item => `${item.label} x${item.quantity}`).join('、');
     const discordTag = user.discriminator ? `${user.username}#${user.discriminator}` : user.username;
 
@@ -453,6 +475,7 @@ async function sendOrder() {
         name,
         discord: discordTag,
         discord_id: user.id,
+        note,
         service
     };
 
