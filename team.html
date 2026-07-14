@@ -61,6 +61,7 @@
             align-items: center;
             box-sizing: border-box;
             gap: 10px;
+            position: relative;
         }
         
         .login-btn { 
@@ -83,15 +84,46 @@
             display: none; 
             align-items: center;
             gap: 8px;
+            position: relative;
         }
         .nav-avatar {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             border: 2px solid var(--primary-color);
+            cursor: pointer;
         }
-        .nav-username {
+        .nav-username { display: none; }
+        .profile-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            min-width: 160px;
+            background: rgba(10, 16, 31, 0.95);
+            border: 1px solid rgba(0, 212, 255, 0.18);
+            border-radius: 14px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            padding: 8px;
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 200;
+        }
+        .profile-menu.visible { display: flex; }
+        .profile-menu button {
+            width: 100%;
+            padding: 10px 12px;
+            border: none;
+            background: rgba(255, 255, 255, 0.05);
+            color: #f2f7ff;
+            text-align: left;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s ease;
             font-size: 0.95rem;
+        }
+        .profile-menu button:hover {
+            background: rgba(0, 212, 255, 0.14);
         }
         
         section { padding: 40px 20px; max-width: 1000px; margin: 0 auto; }
@@ -177,7 +209,10 @@
             <a href="login" id="nav-login-btn" class="login-btn">登入帳號</a>
             <div id="nav-user-profile" class="user-profile">
                 <img id="nav-user-avatar" class="nav-avatar" src="" alt="頭像">
-                <span id="nav-user-name" class="nav-username">玩家</span>
+                <div id="nav-profile-menu" class="profile-menu">
+                    <button id="view-orders-btn">查看訂單</button>
+                    <button id="logout-btn">登出帳號</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -258,16 +293,47 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const savedUser = localStorage.getItem('discord_user');
+            const loginBtn = document.getElementById('nav-login-btn');
+            const userProfile = document.getElementById('nav-user-profile');
+            const avatar = document.getElementById('nav-user-avatar');
+            const profileMenu = document.getElementById('nav-profile-menu');
+            const logoutBtn = document.getElementById('logout-btn');
+            const viewOrdersBtn = document.getElementById('view-orders-btn');
+
+            function closeMenu() {
+                profileMenu.classList.remove('visible');
+            }
+
             if (savedUser) {
                 const user = JSON.parse(savedUser);
-                document.getElementById('nav-login-btn').style.display = 'none';
-                document.getElementById('nav-user-profile').style.display = 'flex';
-                document.getElementById('nav-user-name').innerText = user.username;
+                loginBtn.style.display = 'none';
+                userProfile.style.display = 'flex';
                 if (user.avatar) {
-                    document.getElementById('nav-user-avatar').src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
+                    avatar.src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
                 } else {
-                    document.getElementById('nav-user-avatar').src = "https://cdn.discordapp.com/embed/avatars/0.png";
+                    avatar.src = "https://cdn.discordapp.com/embed/avatars/0.png";
                 }
+
+                avatar.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    profileMenu.classList.toggle('visible');
+                });
+
+                logoutBtn.addEventListener('click', function() {
+                    localStorage.removeItem('discord_user');
+                    window.location.reload();
+                });
+
+                viewOrdersBtn.addEventListener('click', function() {
+                    alert('尚未實作訂單查詢頁面，請稍後開放');
+                    closeMenu();
+                });
+
+                document.addEventListener('click', function(event) {
+                    if (!userProfile.contains(event.target)) {
+                        closeMenu();
+                    }
+                });
             }
         });
     </script>
