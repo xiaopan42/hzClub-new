@@ -11,7 +11,8 @@ body {
     min-height: 100vh;
     background: #07090f;
     color: #f2f7ff;
-    font-family: Arial, sans-serif;
+    font-family: 'Microsoft JhengHei', Arial, sans-serif;
+    line-height: 1.6;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,6 +33,7 @@ body {
 .order-header h2 {
     margin: 0;
     font-size: 2rem;
+    letter-spacing: 0.02em;
 }
 .order-layout {
     display: grid;
@@ -67,9 +69,9 @@ body {
     margin-top: 20px;
 }
 .category-item {
-    padding: 14px 16px;
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.04);
+    padding: 16px 18px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
     cursor: pointer;
     transition: background 0.2s ease, transform 0.2s ease;
 }
@@ -79,13 +81,14 @@ body {
     transform: translateX(2px);
 }
 .category-item h4 {
-    margin: 0 0 4px;
+    margin: 0 0 6px;
     font-size: 1rem;
 }
 .category-item p {
     margin: 0;
-    color: #aac4db;
-    font-size: 0.9rem;
+    color: #aec6dd;
+    font-size: 0.92rem;
+    letter-spacing: 0.01em;
 }
 .account-info {
     margin-top: 25px;
@@ -104,29 +107,31 @@ body {
 .cart-form input,
 .cart-form textarea {
     width: 100%;
-    padding: 12px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: #101826;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #0c1524;
     color: #f3f8ff;
 }
 .cart-form {
     display: grid;
-    gap: 12px;
+    gap: 14px;
     margin-top: 20px;
 }
 .cart-form label {
     color: #c8d5ee;
-    font-size: 0.95rem;
+    font-size: 0.96rem;
+    letter-spacing: 0.01em;
 }
 .cart-form textarea {
-    min-height: 100px;
+    min-height: 110px;
     resize: vertical;
 }
 .order-message {
     margin-top: 6px;
     color: #ffb347;
     min-height: 24px;
+    font-size: 0.95rem;
 }
 .item-list {
     margin-top: 20px;
@@ -139,21 +144,23 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.04);
+    padding: 18px 18px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 .item-card div,
-.product-card div {
-    max-width: 65%;
+.product-card div,
+.cart-item div {
+    max-width: 68%;
 }
 .item-title,
 .product-name,
 .cart-item-title {
     margin: 0 0 6px;
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 700;
+    letter-spacing: 0.01em;
 }
 .item-price,
 .product-price,
@@ -168,11 +175,11 @@ body {
 .remove-btn,
 #checkout-btn {
     border: none;
-    border-radius: 14px;
-    padding: 10px 16px;
+    border-radius: 16px;
+    padding: 12px 18px;
     background: #00eaff;
     color: #07090f;
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
     transition: transform 0.2s ease, background 0.2s ease;
 }
@@ -195,14 +202,21 @@ body {
 }
 .product-card {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 10px;
+    padding: 18px;
 }
 .product-card p {
     margin: 0;
     color: #c0d4f3;
-    line-height: 1.5;
+    line-height: 1.6;
     font-size: 0.95rem;
+}
+.product-card .product-price {
+    margin-top: 4px;
+    font-size: 0.98rem;
+    color: #8be8ff;
+    font-weight: 600;
 }
 .cart-items {
     display: grid;
@@ -218,7 +232,7 @@ body {
 }
 .cart-summary {
     margin-top: 24px;
-    padding-top: 16px;
+    padding-top: 18px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     display: grid;
     gap: 16px;
@@ -227,12 +241,20 @@ body {
     display: flex;
     justify-content: space-between;
     color: #d7e3ff;
+    font-size: 0.98rem;
 }
 .summary-row span:first-child {
     color: #a1b6d8;
 }
 #checkout-btn {
     width: 100%;
+    background: linear-gradient(135deg, #00f4ff 0%, #00b8ff 100%);
+    color: #07090f;
+    font-size: 1rem;
+    padding: 14px 18px;
+}
+#checkout-btn:hover {
+    background: linear-gradient(135deg, #00d4ff 0%, #0096c8 100%);
 }
 </style>
 
@@ -329,7 +351,13 @@ let cart = {};
 
 function getDiscordUser() {
     const savedUser = localStorage.getItem('discord_user');
-    return savedUser ? JSON.parse(savedUser) : null;
+    if (!savedUser) return null;
+    try {
+        return JSON.parse(savedUser);
+    } catch (error) {
+        localStorage.removeItem('discord_user');
+        return null;
+    }
 }
 
 function formatCurrency(value) {
@@ -365,7 +393,7 @@ function renderProducts() {
         <div class="product-card">
             <div>
                 <div class="product-name">${item.name}</div>
-                <p>${item.description}</p>
+                ${item.description ? `<p>${item.description}</p>` : ''}
                 <div class="product-price">${formatCurrency(item.price)}</div>
             </div>
             <button type="button" onclick="addToCart('${item.id}')">加入購物車</button>
@@ -377,12 +405,17 @@ function updateCartUI() {
     const cartEl = document.getElementById('cart-items');
     const checkoutBtn = document.getElementById('checkout-btn');
     const subtotalEl = document.getElementById('subtotal');
+    const orderMessage = document.getElementById('order-message');
+    const user = getDiscordUser();
 
     const cartEntries = Object.values(cart);
     if (!cartEntries.length) {
         cartEl.innerHTML = '<p class="empty-cart">尚未加入任何項目</p>';
         subtotalEl.innerText = '0 TWD';
         checkoutBtn.disabled = true;
+        if (!user) {
+            orderMessage.innerText = '請先登入 Discord 才能下單。';
+        }
         return;
     }
 
@@ -399,7 +432,13 @@ function updateCartUI() {
     cartEl.innerHTML = rows;
     const subtotal = cartEntries.reduce((sum, item) => sum + item.price * item.quantity, 0);
     subtotalEl.innerText = formatCurrency(subtotal);
-    checkoutBtn.disabled = false;
+    if (!user) {
+        checkoutBtn.disabled = true;
+        orderMessage.innerText = '請先登入 Discord 才能下單。';
+    } else {
+        checkoutBtn.disabled = false;
+        orderMessage.innerText = '';
+    }
 }
 
 function findItemById(itemId) {
@@ -439,23 +478,23 @@ function removeFromCart(itemId) {
 
 function renderLoginState() {
     const user = getDiscordUser();
-    const discordUserEl = document.getElementById('discord-user');
     const discordDisplay = document.getElementById('discord-display');
     const orderMessage = document.getElementById('order-message');
     const checkoutBtn = document.getElementById('checkout-btn');
 
     if (!user) {
-        discordUserEl.innerText = '未登入';
         discordDisplay.value = '';
+        discordDisplay.placeholder = '請先登入 Discord';
         orderMessage.innerText = '請先登入 Discord 才能下單。';
         checkoutBtn.disabled = true;
         return;
     }
 
     const discordTag = user.discriminator ? `${user.username}#${user.discriminator}` : user.username;
-    discordUserEl.innerText = discordTag;
     discordDisplay.value = discordTag;
+    discordDisplay.placeholder = '';
     orderMessage.innerText = '';
+    checkoutBtn.disabled = false;
 }
 
 async function sendOrder() {
